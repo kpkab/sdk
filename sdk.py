@@ -4,14 +4,14 @@ import requests
 
 
 def get_db_details(dbname):
-    request_url = 'http://data-api-alb-2-946058755.us-west-2.elb.amazonaws.com/api/v1/resources/catalog/database?dbname=' + dbname
+    request_url = 'http://xxxx/api/v1/resources/catalog/database?dbname=' + dbname
     databaseName = requests.get(request_url)
     dbname = databaseName.text
     return dbname
 
 
 def get_glue_table(dbname, tablename):
-    request_url = 'http://data-api-alb-2-946058755.us-west-2.elb.amazonaws.com/api/v1/resources/catalog/table?dbname=' + dbname + '&tablename=' + tablename
+    request_url = 'http://xxxx/api/v1/resources/catalog/table?dbname=' + dbname + '&tablename=' + tablename
     dbTableName = requests.get(request_url)
     TableName = dbTableName.text
     df = pd.DataFrame(json.loads(TableName)['data'])
@@ -19,7 +19,7 @@ def get_glue_table(dbname, tablename):
 
 
 def get_s3_part_parquet(bucket, key):
-    request_url = 'http://data-api-alb-2-946058755.us-west-2.elb.amazonaws.com/api/v1/resources/s3/partitioned_file' + '?bucket=' + bucket + '&key=' + key
+    request_url = 'http://xxxx/api/v1/resources/s3/partitioned_file' + '?bucket=' + bucket + '&key=' + key
     s3_object = requests.get(request_url)
     object_df = s3_object.text
     df = pd.DataFrame(json.loads(object_df)['data'])
@@ -27,7 +27,7 @@ def get_s3_part_parquet(bucket, key):
 
 
 def get_rs_data():
-    request_url = "http://data-api-alb-2-946058755.us-west-2.elb.amazonaws.com/api/v1/resources/redshift/get_table_data"
+    request_url = "http://xxxx/api/v1/resources/redshift/get_table_data"
     call_rs_data = requests.get(request_url)
     rs_text_dump = call_rs_data.text
     rs_output_dict = json.loads(rs_text_dump)
